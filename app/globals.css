@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --primary-dark: #2C1810;    /* بني داكن جداً */
+  --primary: #8B4513;         /* بني خشبي رئيسي */
+  --primary-light: #A0522D;   /* بني فاتح */
+  
+  /* Secondary Colors */
+  --secondary: #D2691E;       /* بني محمص */
+  --accent: #F4A460;          /* لون تمييزي (رملي) */
+  --gold: #DAA520;            /* ذهبي للعناصر المميزة */
+  
+  /* Neutral Colors */
+  --light: #F5F5DC;           /* بيج فاتح */
+  --gray-light: #E5E5E5;
+  --gray: #999999;
+  --dark: #2C1810;
+  
+  /* Status Colors */
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+  
+  /* Background */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F9F6F1;    /* خلفية دافئة */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--dark)];
+    direction: rtl;
+    text-align: right;
+  }
+}
+
+/* LTR Content (Phone numbers, URLs) */
+.ltr-content {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Custom Components */
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--primary)] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-[var(--primary-dark)] hover:-translate-y-0.5 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-[var(--primary)] text-[var(--primary)] px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-[var(--primary)] hover:text-white;
+  }
+
+  .card {
+    @apply bg-white rounded-xl p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+  }
+
+  .input {
+    @apply w-full p-3 border-2 border-[var(--gray-light)] rounded-lg text-base transition-colors duration-300 focus:border-[var(--primary)] focus:outline-none;
+  }
+
+  .input-error {
+    @apply border-[var(--danger)];
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "css.validate.unknownAtRules": "ignore",
+  "scss.validate.unknownAtRules": "ignore",
+  "less.validate.unknownAtRules": "ignore"
+}
