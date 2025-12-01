@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { MessageSquare, Utensils, Users, Eye } from "lucide-react";
