@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { trackAddToCart } from "@/lib/fbPixelEvents";
 
 export default function Step3Designs() {
     const { selectedDesigns, toggleDesign, nextStep, prevStep } = useQuizStore();
@@ -26,6 +27,23 @@ export default function Step3Designs() {
         fetchDesigns();
     }, []);
 
+    // دالة لتتبع اختيار التصميم
+    const handleToggleDesign = (id: string) => {
+        const design = designs.find(d => d.id === id);
+        
+        // تتبع فقط عند الإضافة (ليس عند الإلغاء)
+        if (!selectedDesigns.includes(id) && selectedDesigns.length < 3) {
+            trackAddToCart({
+                content_name: design?.title || 'Kitchen Design',
+                content_ids: [id],
+                content_type: 'product',
+            });
+        }
+        
+        // تنفيذ الاختيار/الإلغاء
+        toggleDesign(id);
+    };
+
     return (
         <div className="space-y-8">
             <div className="text-center">
@@ -46,7 +64,7 @@ export default function Step3Designs() {
                             key={design.id}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            onClick={() => toggleDesign(design.id)}
+                            onClick={() => handleToggleDesign(design.id)}
                             className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
                         >
                             <div

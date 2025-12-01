@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { trackInitiateCheckout } from "@/lib/fbPixelEvents";
 
 export default function Step1Shape() {
     const { kitchenType, setKitchenType, nextStep } = useQuizStore();
@@ -27,6 +28,12 @@ export default function Step1Shape() {
             }
         };
         fetchShapeImages();
+
+        // تتبع بدء الكويز (InitiateCheckout)
+        trackInitiateCheckout({
+            content_name: 'Kitchen Cost Calculator Started',
+            content_category: 'cost_calculator',
+        });
     }, []);
 
     const shapes = [

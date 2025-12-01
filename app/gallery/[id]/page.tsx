@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Play, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackViewContent } from "@/lib/fbPixelEvents";
 
 interface Kitchen {
     id: string;
@@ -29,7 +30,7 @@ export default function KitchenDetailsPage() {
     const [loading, setLoading] = useState(true);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [slides, setSlides] = useState<Slide[]>([]);
-    const [isPlaying, setIsPlaying] = useState(false); // For carousel video
+    const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
         const fetchKitchen = async () => {
@@ -48,7 +49,14 @@ export default function KitchenDetailsPage() {
                 if (error) throw error;
                 setKitchen(data);
 
-                // Prepare slides: Images first, then Videos
+                // Track ViewContent event
+                trackViewContent({
+                    content_name: data.title,
+                    content_type: 'kitchen',
+                    content_ids: [data.id],
+                    content_category: data.material || 'kitchen',
+                });
+
                 const imageSlides: Slide[] = (data.kitchen_images || []).map((img: any) => ({
                     type: 'image',
                     url: img.image_url,
@@ -73,14 +81,14 @@ export default function KitchenDetailsPage() {
     }, [id]);
 
     const nextSlide = () => {
-        setIsPlaying(false); // Reset video state
+        setIsPlaying(false);
         setCurrentSlideIndex((prev) =>
             prev === slides.length - 1 ? 0 : prev + 1
         );
     };
 
     const prevSlide = () => {
-        setIsPlaying(false); // Reset video state
+        setIsPlaying(false);
         setCurrentSlideIndex((prev) =>
             prev === 0 ? slides.length - 1 : prev - 1
         );
@@ -92,7 +100,6 @@ export default function KitchenDetailsPage() {
         return (match && match[2].length === 11) ? match[2] : null;
     };
 
-    // Custom Video Player Component
     const VideoThumbnailPlayer = ({ url, autoPlay = false }: { url: string, autoPlay?: boolean }) => {
         const [play, setPlay] = useState(autoPlay);
         const videoId = getYouTubeId(url);
@@ -164,7 +171,6 @@ export default function KitchenDetailsPage() {
             <Header />
 
             <main className="flex-grow bg-bg-secondary pb-20">
-                {/* Carousel */}
                 <div className="relative h-[60vh] bg-black group">
                     <AnimatePresence mode="wait">
                         <motion.div
@@ -182,7 +188,6 @@ export default function KitchenDetailsPage() {
                                     className="w-full h-full object-cover"
                                 />
                             ) : currentSlide?.type === 'video' ? (
-                                // For carousel, we control play state centrally to reset on slide change
                                 isPlaying ? (
                                     <iframe
                                         src={`https://www.youtube.com/embed/${getYouTubeId(currentSlide.url)}?autoplay=1`}
@@ -213,7 +218,6 @@ export default function KitchenDetailsPage() {
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                    {/* Navigation Buttons */}
                     <div className="absolute inset-0 flex items-center justify-between px-4 md:px-8 pointer-events-none">
                         <button
                             onClick={nextSlide}
@@ -229,7 +233,6 @@ export default function KitchenDetailsPage() {
                         </button>
                     </div>
 
-                    {/* Counter */}
                     <div className="absolute bottom-8 left-8 bg-black/50 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-medium">
                         {currentSlideIndex + 1} / {slides.length}
                     </div>
@@ -237,9 +240,7 @@ export default function KitchenDetailsPage() {
 
                 <div className="container mx-auto px-4 -mt-20 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Main Content */}
                         <div className="lg:col-span-2 space-y-8">
-                            {/* Title & Info Card */}
                             <div className="card bg-white p-8">
                                 <h1 className="text-3xl md:text-4xl font-bold text-dark mb-4 font-heading">
                                     {kitchen.title}
@@ -261,7 +262,6 @@ export default function KitchenDetailsPage() {
                                 </p>
                             </div>
 
-                            {/* Videos Section (Bottom) */}
                             {kitchen.kitchen_videos && kitchen.kitchen_videos.length > 0 && (
                                 <div className="space-y-6">
                                     <h2 className="text-2xl font-bold text-dark font-heading flex items-center gap-2">
@@ -284,7 +284,6 @@ export default function KitchenDetailsPage() {
                             )}
                         </div>
 
-                        {/* Sidebar */}
                         <div className="lg:col-span-1">
                             <div className="sticky top-24 space-y-6">
                                 <div className="card bg-white p-6 border-2 border-primary/10">
@@ -318,7 +317,6 @@ export default function KitchenDetailsPage() {
                 </div>
             </main>
 
-            {/* Sticky WhatsApp Button (Mobile Only) */}
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 md:hidden z-40">
                 <a
                     href={`https://wa.me/9647700000000?text=${encodeURIComponent(

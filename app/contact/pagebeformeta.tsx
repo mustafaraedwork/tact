@@ -26,55 +26,18 @@ export default function ContactPage() {
         setIsSubmitting(true);
 
         try {
-            // 1. حفظ البيانات في Supabase
-            const { data: insertedData, error } = await supabase
-                .from("contact_requests")
-                .insert({
-                    name: formData.name,
-                    phone: formData.phone,
-                    governorate: formData.governorate,
-                    area: formData.region,
-                    message: formData.message,
-                    source: "contact_form",
-                })
-                .select()
-                .single();
+            const { error } = await supabase.from("contact_requests").insert({
+                name: formData.name,
+                phone: formData.phone,
+                governorate: formData.governorate,
+                area: formData.region,
+                message: formData.message,
+                source: "contact_form",
+            });
 
             if (error) throw error;
 
-            // 2. إرسال حدث Contact إلى Meta Conversions API
-            try {
-                await fetch('/api/meta-events', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        eventName: 'Contact',
-                        eventSourceUrl: window.location.href,
-                        userData: {
-                            phone: formData.phone,
-                            firstName: formData.name?.split(' ')[0],
-                            lastName: formData.name?.split(' ').slice(1).join(' '),
-                            city: formData.governorate,
-                            country: 'iq',
-                            externalId: insertedData?.id,
-                        },
-                        customData: {
-                            content_name: 'Contact Form',
-                            content_category: 'contact',
-                        },
-                    }),
-                });
-                console.log('✅ Meta Contact event sent successfully');
-            } catch (metaError) {
-                // لا نوقف العملية إذا فشل إرسال Meta
-                console.error('⚠️ Meta event failed (non-critical):', metaError);
-            }
-
             toast.success("تم استلام رسالتك بنجاح! سنتواصل معك قريباً.");
-            
-            // إعادة تعيين النموذج
             setFormData({
                 name: "",
                 phone: "",

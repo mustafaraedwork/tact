@@ -3,6 +3,7 @@ import { Cairo, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import ToastProvider from "@/components/providers/ToastProvider";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
+import FacebookPixel from "@/components/FacebookPixel";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -34,6 +35,7 @@ export default function RootLayout({
         {children}
         <ToastProvider />
         <AnalyticsTracker />
+        <FacebookPixel />
       </body>
     </html>
   );

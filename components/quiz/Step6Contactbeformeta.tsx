@@ -39,54 +39,17 @@ export default function Step6Contact() {
         setIsSubmitting(true);
 
         try {
-            // 1. حفظ البيانات في Supabase
-            const { data: insertedData, error } = await supabase
-                .from("contact_requests")
-                .insert({
-                    phone: cleanPhone,
-                    kitchen_type: store.kitchenType,
-                    dimensions: store.dimensions,
-                    selected_designs: store.selectedDesigns,
-                    material: store.material,
-                    source: "cost_calculator",
-                    governorate: store.governorate,
-                })
-                .select()
-                .single();
+            const { error } = await supabase.from("contact_requests").insert({
+                phone: cleanPhone,
+                kitchen_type: store.kitchenType,
+                dimensions: store.dimensions,
+                selected_designs: store.selectedDesigns,
+                material: store.material,
+                source: "cost_calculator",
+                governorate: store.governorate,
+            });
 
             if (error) throw error;
-
-            // 2. إرسال حدث Lead إلى Meta Conversions API
-            try {
-                await fetch('/api/meta-events', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        eventName: 'Lead',
-                        eventSourceUrl: window.location.href,
-                        userData: {
-                            phone: cleanPhone,
-                            city: store.governorate,
-                            country: 'iq',
-                            externalId: insertedData?.id,
-                        },
-                        customData: {
-                            content_name: 'Kitchen Cost Calculator',
-                            content_category: 'cost_calculator',
-                            kitchen_type: store.kitchenType,
-                            material: store.material,
-                            value: 0,
-                            currency: 'IQD',
-                        },
-                    }),
-                });
-                console.log('✅ Meta event sent successfully');
-            } catch (metaError) {
-                // لا نوقف العملية إذا فشل إرسال Meta
-                console.error('⚠️ Meta event failed (non-critical):', metaError);
-            }
 
             setIsSuccess(true);
             toast.success("تم إرسال طلبك بنجاح!");
