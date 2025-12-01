@@ -1,5 +1,9 @@
 "use client";
 
+// Force dynamic rendering for this dynamic route
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useParams, useRouter } from "next/navigation";
