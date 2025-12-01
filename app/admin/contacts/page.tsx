@@ -1,8 +1,5 @@
 "use client";
 
-// Force dynamic rendering - disable static generation for admin pages
-export const dynamic = 'force-dynamic';
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { MessageSquare, Phone, CheckCircle, Eye } from "lucide-react";

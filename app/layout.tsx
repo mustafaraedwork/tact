@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cairo, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import ToastProvider from "@/components/providers/ToastProvider";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -34,8 +35,10 @@ export default function RootLayout({
       >
         {children}
         <ToastProvider />
-        <AnalyticsTracker />
-        <FacebookPixel />
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+          <FacebookPixel />
+        </Suspense>
       </body>
     </html>
   );
