@@ -293,7 +293,7 @@ export default function KitchenDetailsPage() {
                                     </p>
 
                                     <a
-                                        href={`https://wa.me/9647700000000?text=${encodeURIComponent(
+                                        href={`https://wa.me/9647713335020?text=${encodeURIComponent(
                                             `مرحباً TACT، أعجبني تصميم "${kitchen.title}" وأرغب في الاستفسار عنه.`
                                         )}`}
                                         target="_blank"
@@ -319,7 +319,7 @@ export default function KitchenDetailsPage() {
 
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 md:hidden z-40">
                 <a
-                    href={`https://wa.me/9647700000000?text=${encodeURIComponent(
+                    href={`https://wa.me/9647713335020?text=${encodeURIComponent(
                         `مرحباً TACT، أعجبني تصميم "${kitchen?.title}" وأرغب في الاستفسار عنه.`
                     )}`}
                     target="_blank"
