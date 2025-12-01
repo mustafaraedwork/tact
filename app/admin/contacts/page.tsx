@@ -1,5 +1,8 @@
 "use client";
 
+// Force dynamic rendering - disable static generation for admin pages
+export const dynamic = 'force-dynamic';
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { MessageSquare, Phone, CheckCircle, Eye } from "lucide-react";
@@ -15,9 +18,6 @@ interface ContactRequest {
     is_read: boolean;
     created_at: string;
 }
-
-// Force dynamic rendering - disable static generation for admin pages
-export const dynamic = 'force-dynamic';
 
 export default function AdminContactsPage() {
     const [requests, setRequests] = useState<ContactRequest[]>([]);
