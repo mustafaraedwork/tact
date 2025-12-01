@@ -21,13 +21,13 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-4">
                             <a
-                                href="#"
+                                href="https://www.facebook.com/share/1DQJDcEo7G/?mibextid=wwXIfr"
                                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
                             >
                                 <Facebook size={20} />
                             </a>
                             <a
-                                href="#"
+                                href="https://www.instagram.com/tact.kitchen1?igsh=ZTN1d2QyenhxMHh6"
                                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
                             >
                                 <Instagram size={20} />
@@ -84,7 +84,7 @@ export default function Footer() {
                             </li>
                             <li className="flex items-center gap-3 text-gray-400">
                                 <Phone className="text-primary shrink-0" size={20} />
-                                <span className="ltr-content">0770 000 0000</span>
+                                <span className="ltr-content">0771 333 5020</span>
                             </li>
                             <li className="flex items-center gap-3 text-gray-400">
                                 <Mail className="text-primary shrink-0" size={20} />
@@ -98,12 +98,8 @@ export default function Footer() {
                         <h3 className="text-lg font-bold mb-6 font-heading">أوقات العمل</h3>
                         <ul className="space-y-4 text-gray-400">
                             <li className="flex justify-between">
-                                <span>السبت - الخميس</span>
-                                <span>9:00 ص - 6:00 م</span>
-                            </li>
-                            <li className="flex justify-between text-gray-500">
-                                <span>الجمعة</span>
-                                <span>مغلق</span>
+                                <span>مفتوح دائماً</span>
+                                <span>9:00 ص - 9:00 م</span>
                             </li>
                         </ul>
                     </div>

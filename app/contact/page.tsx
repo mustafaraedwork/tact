@@ -121,7 +121,7 @@ export default function ContactPage() {
                                         <div>
                                             <h4 className="font-bold mb-1">العنوان</h4>
                                             <p className="text-gray-600">بغداد - العامرية</p>
-                                            <p className="text-gray-500 text-sm mt-1">الشارع العام، قرب...</p>
+                                            <p className="text-gray-500 text-sm mt-1">شارع المنظمة</p>
                                         </div>
                                     </div>
 
@@ -131,8 +131,8 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <h4 className="font-bold mb-1">الهاتف</h4>
-                                            <p className="text-gray-600 ltr-content">0770 000 0000</p>
-                                            <p className="text-gray-600 ltr-content">0780 000 0000</p>
+                                            <p className="text-gray-600 ltr-content">0771 333 5020</p>
+                                            <p className="text-gray-600 ltr-content">0787 200 3399</p>
                                         </div>
                                     </div>
 
@@ -152,8 +152,7 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <h4 className="font-bold mb-1">أوقات العمل</h4>
-                                            <p className="text-gray-600">السبت - الخميس: 9:00 ص - 6:00 م</p>
-                                            <p className="text-gray-600">الجمعة: مغلق</p>
+                                            <p className="text-gray-600">مفتوح دائماً : 9:00 ص - 9:00 م</p>
                                         </div>
                                     </div>
                                 </div>

@@ -16,6 +16,9 @@ interface ContactRequest {
     created_at: string;
 }
 
+// Force dynamic rendering - disable static generation for admin pages
+export const dynamic = 'force-dynamic';
+
 export default function AdminContactsPage() {
     const [requests, setRequests] = useState<ContactRequest[]>([]);
     const [loading, setLoading] = useState(true);
